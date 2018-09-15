@@ -1,0 +1,10 @@
+*.pyc
+
+venv
+_build
+.pytest_cache
+
+*.swp
+*.swo
+
+.idea
