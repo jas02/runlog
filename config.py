@@ -3,7 +3,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    SECRET_KEY = os.environ.get('RUNLOG_SECRET_KEY')
+    SECRET_KEY = os.environ.get('RUNLOG_SECRET_KEY') or 'supersecret secret'
     MAIL_SERVER = os.environ.get('RUNLOG_MAIL_SERVER', 'smtp.googlemail.com')
     MAIL_PORT = int(os.environ.get('RUNLOG_MAIL_PORT', '587'))
     MAIL_USE_TLS = os.environ.get('RUNLOG_MAIL_USE_TLS', 'true').lower() in \
@@ -27,7 +27,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('RUNLOG_TEST_DATABASE_URL') or \
-        'sqlite://' + os.path.join(basedir, 'runlog-test.sqlite')
+        'sqlite:///' + os.path.join(basedir, 'runlog-test.sqlite')
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('RUNLOG_DATABASE_URL') or \
@@ -37,6 +37,5 @@ config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,
-
     'default': DevelopmentConfig
 }
